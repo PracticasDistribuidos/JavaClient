@@ -1,11 +1,11 @@
 package myclientpackage.requests;
 
 public class SelectNick {
-    private String tipo;
+    private String type;
     private String nick;
 
     public SelectNick(String nick) {
-        this.tipo = "CONECTAR";
+        this.type = "CONNECT";
         this.nick = nick;
     }
 }
