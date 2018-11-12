@@ -1,4 +1,8 @@
 package myclientpackage;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import myclientpackage.requests.SelectNick;
+
 import java.net.*;
 
 public class MyClient {
@@ -8,7 +12,12 @@ public class MyClient {
         try {
             /*---------------------- Send -----------------------------*/
             socket = new DatagramSocket();
-            String msg = "test message ";
+            SelectNick nick = new SelectNick("Elgabo311");
+
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.create();
+            String msg = (gson.toJson(nick));
+
             byte [] b = msg.getBytes();
             InetAddress host = InetAddress.getByName("localhost");
             int serverSocket = 6788;
@@ -19,7 +28,7 @@ public class MyClient {
             byte [] buffer = new byte[1024];
             DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
             socket.receive(reply);
-            System.out.println("Client received: \n " + new String(reply.getData()));
+            System.out.println("Client received: \n " + new String(reply.getData()).substring(0,reply.getLength()));
             socket.close();
         } catch (Exception ex) {
 
